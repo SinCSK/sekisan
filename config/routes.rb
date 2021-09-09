@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users
+  root to: 'quotations#index'
+  resources :quotations, only: [:index, :new, :create, :show, :edit, :destroy]
+  resources :items, only: [:new, :create, :destroy]
+  resources :clients, only: [:new, :create, :destroy]
 end
