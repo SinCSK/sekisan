@@ -1,0 +1,44 @@
+<div>
+  <%= link_to "ホーム", root_path, class: 'btn'%>
+  <%= link_to "商品登録", new_item_path, class: 'btn'%>
+  <%= link_to "顧客登録", new_client_path, class: 'btn'%>
+</div>
+<div>
+  <h1>物件名登録</h1>
+  <%= form_with model:@quotation, method: :post, local: true do |f| %>
+    <%= f.text_field :name, class:"name-text", id:"quotation-name", placeholder:"物件名" %>
+  <% end %>
+  <h1>見積内容</h1>
+  <% unless @quotations.empty? %>
+
+  <% else %>
+    <p> 商品を選択してください</p>
+  <% end %>
+    
+  <h1>顧客選択</h1>
+  <% unless @clients.empty? %>
+    <% @clients.each do |client|%>
+      <div id="client-index", class="client-index">
+        <%= client.company %>
+        <%= client.name %>
+        <%= client.tel %>
+        <%= client.email %>
+        <%= link_to "選択", "#", method: :get, class: "client-edit-btn" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p> 顧客を登録してください</p>
+  <% end %>
+
+  <h1>商品選択</h1>
+  <% @items.each do |item|%>
+    <div id="quotation-item-index", class="quotation-item-index">
+      <%= item.name %>
+      <%= item.standard %>
+      <%= item.unit %>
+      <%= item.unit_price %>
+      <%= item.unit_labor %>
+      <%= link_to "追加", quotation_path(item.id), method: :post, class: "quotation-add-btn" %>
+    </div>
+  <% end %>
+</div>

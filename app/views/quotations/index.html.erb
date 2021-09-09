@@ -1,0 +1,30 @@
+<div>
+  <% unless user_signed_in? %>
+    <%= link_to "ログイン", new_user_session_path, class: 'btn'%>
+  <% else %>
+    <%= link_to "ログアウト", user_registration_path, method: :delete, class: 'btn'%>
+  <% end %>
+  <%= link_to "新規登録", new_user_registration_path, class: 'btn'%>
+</div>
+<div>
+  <h1>メニュー</h1>
+  <div><%= link_to "見積作成", new_quotation_path, method: :get, class: "quotation-new-btn" %></div>
+  <div><%= link_to "顧客登録", new_client_path, method: :get, class: "client-new-btn" %></div>
+  <div><%= link_to "商品登録", new_item_path, method: :get, class: "item-new-btn" %></div>
+</div>
+
+<div>
+  <h1>見積一覧</h1>
+  <% unless @quotations.empty? %>
+    <% @quotations.each do |quotation|%>
+      <div id="quotation-index", class="quotation-index">
+        <%= quotation.name %>
+        <%= quotation.created_at %>
+        <%= link_to "編集", edit_quotation_path, method: :get, class: "quotation-edit-btn" %>
+        <%= link_to "削除", quotation_path(quotation.id), method: :delete, class:"quotation-destroy" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p> 見積書がありません</p>
+  <% end %>
+</div>
