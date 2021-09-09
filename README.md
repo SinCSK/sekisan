@@ -1,24 +1,65 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
+| Column                | Type        | Options                        |
+| --------------------- | ----------- | ------------------------------ |
+| name                  | string      | null: false                    |
+| email                 | string      | null: false, unique: true      |
+| encrypted_password    | string      | null: false                    |
 
-Things you may want to cover:
+### アソシエーション
+has_many :items
+has_many :quotations
+has_many :clients
 
-* Ruby version
+## itemsテーブル
+| Column                | Type        | Options                        |
+| --------------------- | ----------- | ------------------------------ |
+| name                  | string      | null: false                    |
+| standard              | string      | null: false                    |
+| unit                  | string      | null: false                    |
+| unit_price            | integer     | null: false                    |
+| unit_labor            | integer     | null: false                    |
 
-* System dependencies
+### アソシエーション
+belongs_to :user
+has_many :item_quotations
 
-* Configuration
+## quotationsテーブル
+| Column                | Type        | Options                        |
+| --------------------- | ----------- | ------------------------------ |
+| name                  | string      | null: false                    |
+| quantity              | integer     | null: false                    |
+| standard              | integer     | null: false                    |
+| price                 | integer     | null: false                    |
+| labor                 | integer     | null: false                    |
+| user                  | references  | null: false, foreign_key: true |
+| client                | references  | null: false, foreign_key: true |
 
-* Database creation
+### アソシエーション
+belongs_to :user
+has_many :item_quotations
+belongs_to :clients
 
-* Database initialization
+## item_quotationsテーブル
+| Column                | Type        | Options                        |
+| --------------------- | ----------- | ------------------------------ |
+| item                  | references  | null: false, foreign_key: true |
+| quotation             | references  | null: false, foreign_key: true |
 
-* How to run the test suite
+### アソシエーション
+belongs_to :item
+belongs_to :quotation
 
-* Services (job queues, cache servers, search engines, etc.)
+## clientsテーブル
+| Column                | Type        | Options                        |
+| --------------------- | ----------- | ------------------------------ |
+| company               | string      | null: false                    |
+| name                  | string      | null: false                    |
+| email                 | string      | null: false, unique: true      |
+| tel                   | string      | null: false                    |
+| user                  | references  | null: false, foreign_key: true |
 
-* Deployment instructions
-
-* ...
+### アソシエーション
+belongs_to :user
+has_many :quotations
