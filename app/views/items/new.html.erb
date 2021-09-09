@@ -1,0 +1,34 @@
+<div>
+  <%= link_to "ホーム", root_path, class: 'btn'%>
+  <%= link_to "見積作成", new_quotation_path, class: 'btn'%>
+  <%= link_to "顧客登録", new_client_path, class: 'btn'%>
+</div>
+<div>
+  <%= form_with model:@item, method: :post, local: true do |f| %>
+    <h1>商品登録</h1>
+    <%= f.text_field :name, class:"name-text", id:"item-name", placeholder:"商品名" %>
+    <%= f.text_field :standard, class:"standard-text", id:"item-standard", placeholder:"規格" %>
+    <%= f.text_field :unit, class:"unit-text", id:"item-unit", placeholder:"単位" %>
+    <%= f.text_field :unit_price, class:"unit-price-text", id:"item-unit-price", placeholder:"単価" %>
+    <%= f.text_field :unit_labor, class:"unit-labor-text", id:"item-unit-labor", placeholder:"歩掛" %>
+    <%= f.submit "登録" ,class:"item-btn" %>
+  <% end %>
+</div>
+<div>
+  <h1>商品一覧</h1>
+  <% unless @items.empty? %>
+    <% @items.each do |item|%>
+      <div id="item-index", class="item-index">
+        <%= item.name %>
+        <%= item.standard %>
+        <%= item.unit %>
+        <%= item.unit_price %>
+        <%= item.unit_labor %>
+        <%= link_to "編集", "#", method: :get, class: "quotation-edit-btn" %>
+        <%= link_to "削除", item_path(item.id), method: :delete, class:"quotation-destroy" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p> 商品を登録してください</p>
+  <% end %>
+</div>
