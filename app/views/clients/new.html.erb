@@ -1,0 +1,32 @@
+<div>
+  <%= link_to "ホーム", root_path, class: 'btn'%>
+  <%= link_to "見積作成", new_quotation_path, class: 'btn'%>
+  <%= link_to "商品登録", new_item_path, class: 'btn'%>
+</div>
+<div>
+  <%= form_with model:@client, method: :post, local: true do |f| %>
+    <h1>顧客登録</h1>
+    <div><%= f.text_field :company, class:"company-text", id:"item-company", placeholder:"会社名" %></div>
+    <div><%= f.text_field :name, class:"name-text", id:"item-name", placeholder:"担当者名" %></div>
+    <div><%= f.text_field :tel, class:"tel-text", id:"tel-price", placeholder:"電話番号" %></div>
+    <div><%= f.text_field :email, class:"email-text", id:"item-email", placeholder:"メールアドレス" %></div>
+    <div><%= f.submit "登録" ,class:"client-btn" %>
+  <% end %>
+</div>
+<div>
+  <h1>顧客一覧</h1>
+  <% unless @clients.empty? %>
+    <% @clients.each do |client|%>
+      <div id="client-index", class="client-index">
+        <%= client.company %>
+        <%= client.name %>
+        <%= client.tel %>
+        <%= client.email %>
+        <%= link_to "編集", "#", method: :get, class: "client-edit-btn" %>
+        <%= link_to "削除", client_path(client.id), method: :delete, class:"client-destroy" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p> 顧客を登録してください</p>
+  <% end %>
+</div>
